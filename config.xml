@@ -16,7 +16,7 @@
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="./output_horizon2021_removerTest/" />
+        <param name="outputDirectory" value="./output/output_horizon2021_removerTest/" />
         <param name="firstIteration" value="0" />
         <param name="lastIteration" value="20" />
         <param name="eventsFileFormat" value="xml" />
