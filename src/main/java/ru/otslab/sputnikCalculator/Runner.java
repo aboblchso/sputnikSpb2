@@ -23,7 +23,7 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 public class Runner {
     public static void main(String[] args) {
         double scaleCoefficient = 0.15;
-        double populationSample = 0.1;
+        double populationSample = 0.0001;
         String configFile = "config.xml";
         Config config = ConfigUtils.loadConfig(configFile);
         //config.global().setNumberOfThreads(12);
@@ -32,6 +32,8 @@ public class Runner {
         config.controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
         Scenario scenario = ScenarioUtils.loadScenario(config);
         List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
+        AgentsOnModeRemover remover = new AgentsOnModeRemover("pt", scenario.getPopulation());
+        remover.clean();
         Population population = scenario.getPopulation();
         //Population drawedPopulation = PopulationUtils.createPopulation(config);
         Iterator personIterator = population.getPersons().values().iterator();
