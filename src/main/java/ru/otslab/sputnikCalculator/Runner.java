@@ -26,6 +26,7 @@ public class Runner {
         double populationSample = 0.1;
         String configFile = "config.xml";
         Config config = ConfigUtils.loadConfig(configFile);
+        //config.global().setNumberOfThreads(12);
         config.qsim().setFlowCapFactor(scaleCoefficient);
         config.qsim().setStorageCapFactor(scaleCoefficient * 2);
         config.controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
