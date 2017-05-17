@@ -56,6 +56,8 @@ public class Runner {
             */
         }
 
+
+
         Controler controler = new Controler(scenario);
         controler.run();
     }
