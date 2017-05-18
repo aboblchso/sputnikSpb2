@@ -22,7 +22,7 @@ public class RunPNetworkGenerator {
 		/*
 		 * The input file name.
 		 */
-        String osm = "C:\\Users\\volot\\MATSIm_workspace\\sputnikSpb\\input\\inputForNetwork\\mapTest1.osm";
+        String osm = "C:\\Users\\volot\\MATSIm_workspace\\sputnikSpb\\input\\inputForNetwork\\network_horizon_2021.osm";
 
 		/*
 		 * The coordinate system to use. OpenStreetMap uses WGS84, but for MATSim, we need a projection where distances
@@ -62,7 +62,7 @@ public class RunPNetworkGenerator {
 		 */
 
 
-        new NetworkWriter(network).writeV1("./input/networkTest1.xml");
+        new NetworkWriter(network).writeV1("./input/networkBetter.xml");
 
     }
 
