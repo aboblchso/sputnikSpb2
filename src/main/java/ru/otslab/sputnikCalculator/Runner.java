@@ -23,7 +23,7 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 public class Runner {
     public static void main(String[] args) {
         double scaleCoefficient = 0.15;
-        double populationSample = 0.0001;
+        double populationSample = 0.1;
         String configFile = "config.xml";
         Config config = ConfigUtils.loadConfig(configFile);
         //config.global().setNumberOfThreads(12);
@@ -47,16 +47,12 @@ public class Runner {
             Id<Person> toRemoveId = (Id<Person>) randomDrawIterator.next();
             log.println("Removing the person " + toRemoveId);
             population.removePerson(toRemoveId);
-
            /*
             Id<Person> toAddId = (Id<Person>) randomDrawIterator.next();
             Person toAddPerson = population.getPersons(Map<Id<Person>, args> );
             drawedPopulation.addPerson(toRemoveId);
-
             */
         }
-
-
 
         Controler controler = new Controler(scenario);
         controler.run();
