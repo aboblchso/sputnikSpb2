@@ -9,15 +9,15 @@
     </module>
 
     <module name="network">
-        <param name="inputNetworkFile" value="C:\Users\nano\IdeaProjects\ots\sputnikSpb2\input\network_horizon_2021_car.xml" />
+        <param name="inputNetworkFile" value="input/network_horizon2021_1.xml" />
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="C:\Users\nano\IdeaProjects\ots\sputnikSpb2\input\population_horizon2021_car_24h_80.xml.gz"/>
+        <param name="inputPlansFile" value="input/population_horizon2021_1.xml"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="./output/output_horizon2021_80/" />
+        <param name="outputDirectory" value="./output/output_horizon_2021_1/" />
         <param name="firstIteration" value="0" />
         <param name="lastIteration" value="30" />
         <param name="eventsFileFormat" value="xml" />
@@ -33,6 +33,13 @@
         <param name="endTime" value="24:00:00" />
         <param name="numberOfThreads" value="16"/>
         <param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
+    </module>
+
+    <module name="transitRouter">
+        <param name="searchRadius" value="3000" />
+        <param name="extensionRadius" value="1000" />
+        <param name="maxBeelineWalkConnectionDistance" value="1000" />
+        <param name="additionalTransferTime" value="900" />
     </module>
 
     <module name="planCalcScore">
@@ -80,7 +87,7 @@
 
         <param name="ModuleProbability_2" value="0.10" />
         <param name="Module_2" value="ReRoute" />
-        <param name="ModuleDisableAfterIteration_2" value="15" />
+        <param name="ModuleDisableAfterIteration_2" value="25" />
 
         
         <param name="ModuleProbability_3" value="0.0" />
@@ -89,9 +96,9 @@
     </module>
 
     <module name="transit">
-        <param name="useTransit" value="false" />
-        <!--  <param name="transitScheduleFile" value="input/transitSchedule21_10min_300.xml" />
-         <param name="vehiclesFile" value="input/transitVehicles21_10min_300.xml" /> -->
+         <param name="useTransit" value="true" />
+         <param name="transitScheduleFile" value="input/transitSchedule_horizon2021_1.xml" />
+         <param name="vehiclesFile" value="input/transitVehicles_horizon2021_1.xml" />
          <param name="transitModes" value="pt" />
      </module>
 

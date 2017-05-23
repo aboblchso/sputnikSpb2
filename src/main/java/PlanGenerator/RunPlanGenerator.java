@@ -159,7 +159,7 @@ public class RunPlanGenerator {
                 }
             }
             PopulationWriter populationWriter = new PopulationWriter(scenario.getPopulation(), scenario.getNetwork());
-            populationWriter.writeV5("population"  + modelScenario + ".xml");
+            populationWriter.writeV5("input\\population"  + modelScenario + ".xml");
           } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
