@@ -5,32 +5,33 @@
     <module name="global">
         <param name="randomSeed" value="4711" />
         <param name="coordinateSystem" value="EPSG:32635" />
+        <param name="numberOfThreads" value="16" />
     </module>
 
     <module name="network">
-        <param name="inputNetworkFile" value="input/networkBetter.xml" />
+        <param name="inputNetworkFile" value="C:\Users\nano\IdeaProjects\ots\sputnikSpb2\input\network_horizon_2021_car.xml" />
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="input/population_horizon2021_car_pt.xml.gz" />
+        <param name="inputPlansFile" value="C:\Users\nano\IdeaProjects\ots\sputnikSpb2\input\population_horizon2021_car_24h_80.xml.gz"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="./output/output_horizon2021_removerTest/" />
+        <param name="outputDirectory" value="./output/output_horizon2021_80/" />
         <param name="firstIteration" value="0" />
-        <param name="lastIteration" value="1" />
+        <param name="lastIteration" value="30" />
         <param name="eventsFileFormat" value="xml" />
         <param name="mobsim" value="qsim" />
-        <param name="writePlansInterval" value="1" />
-        <param name="writeEventsInterval" value="1" />
-        <param name="writeSnapshotsInterval" value="1" />
+        <param name="writePlansInterval" value="10" />
+        <param name="writeEventsInterval" value="10" />
+        <param name="writeSnapshotsInterval" value="10" />
     </module>
 
     <module name="qsim">
         <!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
         <param name="startTime" value="00:00:00" />
-        <param name="endTime" value="25:00:00" />
-        <param name="numberOfThreads" value="6"/>
+        <param name="endTime" value="24:00:00" />
+        <param name="numberOfThreads" value="16"/>
         <param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
     </module>
 

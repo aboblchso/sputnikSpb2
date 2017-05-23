@@ -35,6 +35,8 @@ import java.util.*;
 public class RunPlanGenerator {
     String zeroDate = "2016.04.16 00:00";
     Set<Integer> nullZones = new HashSet<>();
+    String modelScenario = "_horizon2021_1";
+
 
 
     public static void main(String [] args) throws IOException, ParseException, TransformException, FactoryException {
@@ -65,8 +67,8 @@ public class RunPlanGenerator {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
         Date zeroDate = simpleDateFormat.parse(this.zeroDate);
-        try (BufferedReader reader = new BufferedReader(new FileReader("input\\inputForPlans\\2021_car_pt.csv"));
-             PrintWriter printWriter = new PrintWriter("population_sputnik_2021_car_pt.csv")) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("input\\inputForPlans\\trips" + modelScenario + ".csv"));
+             PrintWriter printWriter = new PrintWriter("population_" + modelScenario + ".csv")) {
             String line = null;
             long personId = 0;
             long lineNumber = 0;
@@ -157,7 +159,7 @@ public class RunPlanGenerator {
                 }
             }
             PopulationWriter populationWriter = new PopulationWriter(scenario.getPopulation(), scenario.getNetwork());
-            populationWriter.writeV5("population_horizon2021_car_pt.xml");
+            populationWriter.writeV5("population"  + modelScenario + ".xml");
           } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
