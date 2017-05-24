@@ -1,11 +1,16 @@
 package NetworkGenerator;
 
+import org.matsim.analysis.CalcLinkStats;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.network.NetworkWriter;
+import org.matsim.contrib.accessibility.utils.NetworkUtil;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.network.NetworkUtils;
 import org.matsim.core.network.algorithms.NetworkCleaner;
+import org.matsim.core.network.algorithms.NetworkTransform;
+import org.matsim.core.network.io.NetworkReaderMatsimV1;
 import org.matsim.core.scenario.ScenarioUtils;
 import org.matsim.core.utils.geometry.CoordinateTransformation;
 import org.matsim.core.utils.geometry.transformations.TransformationFactory;
@@ -22,7 +27,13 @@ public class RunPNetworkGenerator {
 		/*
 		 * The input file name.
 		 */
-        String osm = "C:\\Users\\volot\\MATSIm_workspace\\sputnikSpb\\input\\inputForNetwork\\network_horizon_2021.osm";
+        String osm = "C:/Users/nano/IdeaProjects/ots/sputnikSpb2/input/inputForNetwork/network_all4_speed_fix.osm";
+        String networkFile = "input/inputForNetwork/tryWithJOSM.xml";
+        Config config = ConfigUtils.createConfig();
+        config.network().setInputFile(networkFile);
+        Scenario scenario = ScenarioUtils.createScenario(config);
+        Network network = scenario.getNetwork();
+
 
 		/*
 		 * The coordinate system to use. OpenStreetMap uses WGS84, but for MATSim, we need a projection where distances
@@ -34,18 +45,21 @@ public class RunPNetworkGenerator {
         CoordinateTransformation ct =
                 TransformationFactory.getCoordinateTransformation(TransformationFactory.WGS84, "EPSG:32635");
 
+
 		/*
 		 * First, create a new Config and a new Scenario. One always has to do this when working with the MATSim
 		 * data containers.
 		 *
-		 */
+
         Config config = ConfigUtils.createConfig();
         Scenario scenario = ScenarioUtils.createScenario(config);
+         */
 
 		/*
 		 * Pick the Network from the Scenario for convenience.
 		 */
-        Network network = scenario.getNetwork();
+        ;
+
 
         OsmNetworkReader onr = new OsmNetworkReader(network,ct);
         onr.parse(osm);
@@ -62,7 +76,7 @@ public class RunPNetworkGenerator {
 		 */
 
 
-        new NetworkWriter(network).writeV1("./input/networkBetter.xml");
+        new NetworkWriter(network).writeV1("./input/networkNew.xml");
 
     }
 

@@ -24,60 +24,50 @@ public class Runner {
     public static void main(String[] args) {
         double scaleCoefficient = 1.0;
         double populationSample = 1.0;
-        boolean scalePopulation = false;
-        boolean removePersonOnMode = false;
-        String configFile = "config_horizon_2021_1.xml";
+        boolean scalePopulation = true;
+        boolean removePersonOnMode = true;
+        String configFile = "config_test_pt.xml";
         Config config = ConfigUtils.loadConfig(configFile);
         //config.global().setNumberOfThreads(12);
         config.qsim().setFlowCapFactor(scaleCoefficient);
         config.qsim().setStorageCapFactor(scaleCoefficient * 2);
         config.controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
         Scenario scenario = ScenarioUtils.loadScenario(config);
-
-
-        if (removePersonOnMode){
-            List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
-            AgentsOnModeRemover remover = new AgentsOnModeRemover("pt", scenario.getPopulation());
-            remover.clean();
-        }
-
-        if (scalePopulation){
-            populationScaler(populationSample, scenario);
-
-        }
-
-
-        Controler controler = new Controler(scenario);
-        controler.run();
-    }
-
-    private static void populationScaler(double populationSample, Scenario scenario) {
         Population population = scenario.getPopulation();
-        List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
+
+
+
+            List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
+            AgentsOnModeRemover remover = new AgentsOnModeRemover("car", population);
+            remover.clean();
+
+
         //Population drawedPopulation = PopulationUtils.createPopulation(config);
+        List<Id<Person>> personIdList2 = new LinkedList<Id<Person>>();
+
         Iterator personIterator = population.getPersons().values().iterator();
-        while (personIterator.hasNext()){
+        while (personIterator.hasNext()) {
             Person person = (Person) personIterator.next();
-            personIdList.add(person.getId());
-            List<Id<Person>> randomDraw = pickNRandom(personIdList, personIdList.size()* (1 - populationSample));
-            Iterator randomDrawIterator = randomDraw.iterator();
-            while (randomDrawIterator.hasNext()){
-                Id<Person> toRemoveId = (Id<Person>) randomDrawIterator.next();
-                log.println("Removing the person " + toRemoveId);
-                population.removePerson(toRemoveId);
+            personIdList2.add(person.getId());
                /*
                 Id<Person> toAddId = (Id<Person>) randomDrawIterator.next();
                 Person toAddPerson = population.getPersons(Map<Id<Person>, args> );
                 drawedPopulation.addPerson(toRemoveId);
                 */
             }
+            List<Id<Person>> randomDraw = pickNRandom(personIdList2, personIdList2.size() * (1 - populationSample));
+            Iterator randomDrawIterator = randomDraw.iterator();
+            while (randomDrawIterator.hasNext()) {
+                Id<Person> toRemoveId = (Id<Person>) randomDrawIterator.next();
+                log.println("Removing the person " + toRemoveId);
+                population.removePerson(toRemoveId);
         }
-
+        Controler controler = new Controler(scenario);
+        controler.run();
     }
-
-    public static List<Id<Person>> pickNRandom(List<Id<Person>> lst, double n) {
-        List<Id<Person>> copy = new LinkedList<Id<Person>>(lst);
-        Collections.shuffle(copy);
-        return copy.subList(0, (int) n);
-    }
+            public static List<Id<Person>> pickNRandom (List < Id < Person >> lst,double n){
+                List<Id<Person>> copy = new LinkedList<Id<Person>>(lst);
+                Collections.shuffle(copy);
+                return copy.subList(0, (int) n);
+            }
 }

@@ -35,7 +35,7 @@ import java.util.*;
 public class RunPlanGenerator {
     String zeroDate = "2016.04.16 00:00";
     Set<Integer> nullZones = new HashSet<>();
-    String modelScenario = "_horizon2021_1";
+    String modelScenario = "_horizon2021_1_test";
 
 
 
@@ -148,10 +148,10 @@ public class RunPlanGenerator {
                     Activity toActivity = populationFactory.createActivityFromCoord("w", new Coord(arrival.getX(), arrival.getY()));
                     toActivity.setStartTime(matsimArrivalTime);
                     plan.addActivity(fromActivity);
-                    if (modeDefault == "car") {
+                    if (modeDefault.equals("car")) {
                         plan.addLeg(carLeg);
                     }
-                    else {
+                    else if (modeDefault.equals("pt")) {
                         plan.addLeg(ptLeg);
                     }
                     plan.addActivity(toActivity);
@@ -159,7 +159,7 @@ public class RunPlanGenerator {
                 }
             }
             PopulationWriter populationWriter = new PopulationWriter(scenario.getPopulation(), scenario.getNetwork());
-            populationWriter.writeV5("input\\population"  + modelScenario + ".xml");
+            populationWriter.writeV5("population"  + modelScenario + ".xml");
           } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
