@@ -33,6 +33,7 @@
         <param name="endTime" value="24:00:00" />
         <param name="numberOfThreads" value="16"/>
         <param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
+        <param name="mainMode" value="car" />
     </module>
 
     <module name="transitRouter">
