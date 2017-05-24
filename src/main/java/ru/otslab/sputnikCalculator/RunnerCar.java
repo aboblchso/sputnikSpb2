@@ -20,13 +20,13 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 /**
  * Created by volot on 12.05.2017.
  */
-public class Runner {
+public class RunnerCar {
     public static void main(String[] args) {
         double scaleCoefficient = 1.0;
-        double populationSample = 1.0;
+        double populationSample = 0.7;
         boolean scalePopulation = true;
         boolean removePersonOnMode = true;
-        String configFile = "config_test_pt.xml";
+        String configFile = "config_horizon_2021_1_car.xml";
         Config config = ConfigUtils.loadConfig(configFile);
         //config.global().setNumberOfThreads(12);
         config.qsim().setFlowCapFactor(scaleCoefficient);
@@ -38,7 +38,7 @@ public class Runner {
 
 
             List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
-            AgentsOnModeRemover remover = new AgentsOnModeRemover("car", population);
+            AgentsOnModeRemover remover = new AgentsOnModeRemover("pt", population);
             remover.clean();
 
 
