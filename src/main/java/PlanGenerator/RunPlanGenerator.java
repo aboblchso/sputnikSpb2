@@ -35,7 +35,7 @@ import java.util.*;
 public class RunPlanGenerator {
     String zeroDate = "2016.04.16 00:00";
     Set<Integer> nullZones = new HashSet<>();
-    String modelScenario = "_horizon2021_1";
+    String modelScenario = "_horizon2026_1";
 
 
 
@@ -174,7 +174,7 @@ public class RunPlanGenerator {
     // parsing the shape file
     public void runParsing() throws IOException {
         // input file
-        File file = new File("input\\inputForPlans\\station_2.shp");
+        File file = new File("input\\inputForPlans\\station_2_2026.shp");
         // smth??
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("url", file.toURI().toURL());
