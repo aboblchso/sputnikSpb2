@@ -22,8 +22,8 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
  */
 public class RunnerCar {
     public static void main(String[] args) {
-        double scaleCoefficient = 0.85;
-        double populationSample = 0.25;
+        double scaleCoefficient = 1.0;
+        double populationSample = 0.15;
         boolean scalePopulation = true;
         boolean removePersonOnMode = true;
         String configFile = "config_horizon_2021_1_car.xml";

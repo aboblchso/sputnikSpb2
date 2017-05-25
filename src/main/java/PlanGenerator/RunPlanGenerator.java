@@ -68,7 +68,7 @@ public class RunPlanGenerator {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
         Date zeroDate = simpleDateFormat.parse(this.zeroDate);
         try (BufferedReader reader = new BufferedReader(new FileReader("input\\inputForPlans\\trips" + modelScenario + ".csv"));
-             PrintWriter printWriter = new PrintWriter("population_" + modelScenario + ".csv")) {
+             PrintWriter printWriter = new PrintWriter("population_" + modelScenario + "_2021.csv")) {
             String line = null;
             long personId = 0;
             long lineNumber = 0;
@@ -159,7 +159,7 @@ public class RunPlanGenerator {
                 }
             }
             PopulationWriter populationWriter = new PopulationWriter(scenario.getPopulation(), scenario.getNetwork());
-            populationWriter.writeV5("population"  + modelScenario + ".xml");
+            populationWriter.writeV5("population"  + modelScenario + "_2021.xml");
           } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -174,7 +174,7 @@ public class RunPlanGenerator {
     // parsing the shape file
     public void runParsing() throws IOException {
         // input file
-        File file = new File("input\\inputForPlans\\station_2_2026.shp");
+        File file = new File("input\\inputForPlans\\station_2.shp");
         // smth??
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("url", file.toURI().toURL());
