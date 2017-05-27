@@ -9,15 +9,15 @@
     </module>
 
     <module name="network">
-        <param name="inputNetworkFile" value="input/network_horizon2026_1.xml" />
+        <param name="inputNetworkFile" value="input/network_horizon2036_1.xml" />
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="input/population_horizon2026_1.xml"/>
+        <param name="inputPlansFile" value="input/population_horizon2036_1.xml"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="output/output_horizon_2026_1_car_final/" />
+        <param name="outputDirectory" value="output/output_horizon_2036_1_car_final/" />
         <param name="firstIteration" value="0" />
         <param name="lastIteration" value="10" />
         <param name="eventsFileFormat" value="xml" />
