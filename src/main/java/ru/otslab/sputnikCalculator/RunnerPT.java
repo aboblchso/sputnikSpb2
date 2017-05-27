@@ -26,7 +26,7 @@ public class RunnerPT {
         double populationSample = 1.0;
         boolean scalePopulation = true;
         boolean removePersonOnMode = true;
-        String configFile = "config_test_pt.xml";
+        String configFile = "config_horizon_2021_1_pt.xml";
         Config config = ConfigUtils.loadConfig(configFile);
         //config.global().setNumberOfThreads(12);
         config.qsim().setFlowCapFactor(scaleCoefficient);
