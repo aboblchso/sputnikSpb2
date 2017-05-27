@@ -35,7 +35,7 @@ import java.util.*;
 public class RunPlanGenerator {
     String zeroDate = "2016.04.16 00:00";
     Set<Integer> nullZones = new HashSet<>();
-    String modelScenario = "_horizon2021";
+    String modelScenario = "_horizon2036";
 
 
 
