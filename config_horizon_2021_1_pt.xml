@@ -96,7 +96,7 @@
     </module>
 
     <module name="transit">
-         <param name="useTransit" value="false" />
+         <param name="useTransit" value="true" />
          <param name="transitScheduleFile" value="input/transitSchedule_horizon2021_1.xml" />
          <param name="vehiclesFile" value="input/transitVehicles_horizon2021_1.xml" />
          <param name="transitModes" value="pt" />
