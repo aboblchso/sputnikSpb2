@@ -29,9 +29,10 @@ public class UniversalRunner {
         boolean removePersonOnMode = true;
 
         for (int year = 2026; year < 2037; year=year+5) {
-
-
             calcCar(scaleCoefficient, populationSampleCar, year);
+        }
+
+        for (int year = 2026; year < 2037; year=year+5) {
             calcPT(scaleCoefficient, populationSamplePT, year);
         }
     }
