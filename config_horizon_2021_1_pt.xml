@@ -19,12 +19,11 @@
     <module name="controler">
         <param name="outputDirectory" value="./output/output_horizon_2021_1_pt/" />
         <param name="firstIteration" value="0" />
-        <param name="lastIteration" value="20" />
+        <param name="lastIteration" value="5" />
         <param name="eventsFileFormat" value="xml" />
         <param name="mobsim" value="qsim" />
-        <param name="writePlansInterval" value="10" />
-        <param name="writeEventsInterval" value="10" />
-        <param name="writeSnapshotsInterval" value="10" />
+        <param name="writePlansInterval" value="5" />
+        <param name="writeEventsInterval" value="5" />
     </module>
 
     <module name="qsim">

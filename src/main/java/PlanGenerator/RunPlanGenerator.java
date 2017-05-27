@@ -35,7 +35,7 @@ import java.util.*;
 public class RunPlanGenerator {
     String zeroDate = "2016.04.16 00:00";
     Set<Integer> nullZones = new HashSet<>();
-    String modelScenario = "_horizon2026_1";
+    String modelScenario = "_horizon2021";
 
 
 
@@ -67,8 +67,8 @@ public class RunPlanGenerator {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
         Date zeroDate = simpleDateFormat.parse(this.zeroDate);
-        try (BufferedReader reader = new BufferedReader(new FileReader("input\\inputForPlans\\trips" + modelScenario + ".csv"));
-             PrintWriter printWriter = new PrintWriter("population_" + modelScenario + "_2021.csv")) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("input\\inputForPlans\\trips" + modelScenario + "_1.csv"));
+             PrintWriter printWriter = new PrintWriter("population_" + modelScenario + "_1.csv")) {
             String line = null;
             long personId = 0;
             long lineNumber = 0;
@@ -159,7 +159,7 @@ public class RunPlanGenerator {
                 }
             }
             PopulationWriter populationWriter = new PopulationWriter(scenario.getPopulation(), scenario.getNetwork());
-            populationWriter.writeV5("population"  + modelScenario + "_2021.xml");
+            populationWriter.writeV5("population"  + modelScenario + "_1.xml");
           } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -174,7 +174,7 @@ public class RunPlanGenerator {
     // parsing the shape file
     public void runParsing() throws IOException {
         // input file
-        File file = new File("input\\inputForPlans\\station_2.shp");
+        File file = new File("input/inputForPlans/shape" + modelScenario + ".shp");
         // smth??
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("url", file.toURI().toURL());

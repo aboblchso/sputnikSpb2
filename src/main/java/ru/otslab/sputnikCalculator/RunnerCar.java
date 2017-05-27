@@ -26,7 +26,7 @@ public class RunnerCar {
         double populationSample = 0.15;
         boolean scalePopulation = true;
         boolean removePersonOnMode = true;
-        String configFile = "config_horizon_2021_1_car.xml";
+        String configFile = "config_horizon_2026_1_car.xml";
         Config config = ConfigUtils.loadConfig(configFile);
         //config.global().setNumberOfThreads(12);
         config.qsim().setFlowCapFactor(scaleCoefficient);
