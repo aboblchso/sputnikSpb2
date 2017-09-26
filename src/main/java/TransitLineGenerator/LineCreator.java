@@ -27,6 +27,7 @@ import java.util.List;
  * Created by Ekaterina on 04.09.2016.
  */
 public class LineCreator {
+   /*
     private final Network network;
     private final String routeName;
     private final String [] routeNodes;
@@ -188,5 +189,5 @@ public class LineCreator {
         }
     }
 
-
+*/
 }

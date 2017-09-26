@@ -26,23 +26,35 @@ import java.util.List;
 /**
  * Created by Jaroslav on 21.01.2017.
  */
-public class AgentsOnModeRemover {
-    private final String mode;
+public class AgentsTripModeModifier {
     private final Population population;
 
-    public AgentsOnModeRemover(String mode, Population population) {
-        this.mode = mode;
+    public AgentsTripModeModifier(Population population) {
         this.population = population;
     }
 
-    public void clean(){
+    public void clean(String oldMode){
         for (Person person : new ArrayList<Person>(population.getPersons().values())){
-            if(isModeUser(person)){
+            if(isModeUser(person, oldMode)){
                 population.removePerson(person.getId());
             }
         }
     }
-    private boolean isModeUser(Person person){
+
+    public void changeMode(String oldMode, String newMode) {
+        for (Person person : new ArrayList<Person>(population.getPersons().values())) {
+            List<? extends Plan> personPlans = person.getPlans();
+            for (PlanElement planElement : personPlans.get(personPlans.size() - 1).getPlanElements()) {
+                if (planElement instanceof Leg) {
+                    if (((Leg) planElement).getMode().equals(oldMode)) {
+                        ((Leg) planElement).setMode(newMode);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isModeUser(Person person, String mode){
         List<? extends Plan> personPlans = person.getPlans();
         for (PlanElement planElement : personPlans.get(personPlans.size() - 1).getPlanElements()) {
             if (planElement instanceof Leg){

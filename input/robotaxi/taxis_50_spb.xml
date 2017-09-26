@@ -1,0 +1,54 @@
+<!DOCTYPE vehicles SYSTEM "http://matsim.org/files/dtd/dvrp_vehicles_v1.dtd">
+
+<vehicles>
+	<vehicle id="taxi0" start_link="192494488_1" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi1" start_link="132600771_1_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi2" start_link="155078539_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi3" start_link="150727746_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi4" start_link="331636760_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi5" start_link="172789061_1_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi6" start_link="309154582_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi7" start_link="142516052_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi8" start_link="4462110_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi9" start_link="4455835_0_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi10" start_link="392708752_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi11" start_link="262191444_0_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi12" start_link="31372101_0_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi13" start_link="242135221_1" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi14" start_link="86550470_1" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi15" start_link="42258656_2" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi16" start_link="449113371_0_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi17" start_link="126562677_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi18" start_link="153371887_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi19" start_link="31404088_0_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi20" start_link="141937559_1_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi21" start_link="31369213_1_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi22" start_link="349610156_4" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi23" start_link="203936640_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi24" start_link="279674730_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi25" start_link="183892204_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi26" start_link="158898072_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi27" start_link="31380678_1_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi28" start_link="367452708_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi29" start_link="173531146_0_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi30" start_link="31396105_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi31" start_link="224885269_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi32" start_link="357162136_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi33" start_link="31398431_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi34" start_link="94473543_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi35" start_link="72525354_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi36" start_link="91399648_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi37" start_link="4458973_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi38" start_link="31367387_3_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi39" start_link="85672217_1" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi40" start_link="368530994_2" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi41" start_link="156398249_1" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi42" start_link="125682605_1" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi43" start_link="140456818_1_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi44" start_link="411577113_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi45" start_link="148247020_1" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi46" start_link="179713624_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi47" start_link="160048394_3_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi48" start_link="390335978_0" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+	<vehicle id="taxi49" start_link="449766359_0_r" t_0="0.0" t_1="86400.0" capacity="4.0"/>
+</vehicles>

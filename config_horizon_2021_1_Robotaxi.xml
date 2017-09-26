@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v1.dtd">
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
 <config>
 
     <module name="taxifare">
@@ -58,7 +58,7 @@
         <!-- An XML file specifying the taxi fleet. The file format according to
             dvrp_vehicles_v1.dtd -->
         <!-- To create your own vehicles, see org.matsim.contrib.av.vehicles.CreateTaxiVehicles  -->
-        <param name="taxisFile" value="taxis_5000.xml" />
+        <param name="taxisFile" value="input/robotaxi/taxis_50_spb.xml" />
         <!--  param name="taxisFile" value="taxis_2000.xml" /  -->
 
         <!-- If true, time profiles of vehicle statuses (i.e. current task type)
@@ -97,7 +97,7 @@
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="output/output_horizon_2021_1_car_final/" />
+        <param name="outputDirectory" value="output/output_horizon_2021_1_robotaxi/" />
         <param name="firstIteration" value="0" />
         <param name="lastIteration" value="10" />
         <param name="eventsFileFormat" value="xml" />
@@ -114,6 +114,15 @@
         <param name="numberOfThreads" value="16"/>
         <param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
         <param name="mainMode" value="car" />
+        <param name="simStarttimeInterpretation" value="onlyUseStarttime" />
+        <param name="insertingWaitingVehiclesBeforeDrivingVehicles"
+               value="true" />
+        <param name="snapshotStyle" value="queue" />
+    </module>
+
+    <module name="otfvis">
+        <param name="coloringScheme" value="taxicab" />
+        <param name="drawNonMovingItems" value="true" />
     </module>
 
     <module name="transitRouter">
@@ -158,6 +167,14 @@
         <param name="activityEarliestEndTime_2" value="" />
         <param name="activityClosingTime_2"     value="20:00:00" />
 
+        <parameterset type="modeParams">
+            <param name="constant" value="0.0" />
+            <param name="marginalUtilityOfDistance_util_m" value="0.0" />
+            <param name="marginalUtilityOfTraveling_util_hr" value="0.0" />
+            <param name="mode" value="taxi" />
+            <param name="monetaryDistanceRate" value="0.0" />
+        </parameterset>
+
     </module>
 
     <module name="strategy">
@@ -173,6 +190,18 @@
         
         <param name="ModuleProbability_3" value="0.0" />
         <param name="Module_3" value="ChangeTripMode" />
+
+        <param name="fractionOfIterationsToDisableInnovation" value="0.8" />
+
+        <parameterset type="strategysettings">
+            <param name="strategyName" value="TimeAllocationMutator" />
+            <param name="weight" value="0.1" />
+        </parameterset>
+
+    </module>
+
+    <module name="TimeAllocationMutator">
+        <param name="mutationRange" value="900.0" />
 
     </module>
 

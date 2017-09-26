@@ -44,8 +44,8 @@ public class RunnerPtWithMinibus {
 
 
             List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
-            AgentsOnModeRemover remover = new AgentsOnModeRemover("car", population);
-            remover.clean();
+            AgentsTripModeModifier modeModifier = new AgentsTripModeModifier(population);
+            modeModifier.clean("car");
 
 
         //Population drawedPopulation = PopulationUtils.createPopulation(config);

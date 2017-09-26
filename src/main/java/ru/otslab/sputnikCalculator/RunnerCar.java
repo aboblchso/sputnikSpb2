@@ -38,8 +38,8 @@ public class RunnerCar {
 
 
             List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
-            AgentsOnModeRemover remover = new AgentsOnModeRemover("pt", population);
-            remover.clean();
+            AgentsTripModeModifier modeModifier = new AgentsTripModeModifier(population);
+            modeModifier.clean("pt");
 
 
         //Population drawedPopulation = PopulationUtils.createPopulation(config);

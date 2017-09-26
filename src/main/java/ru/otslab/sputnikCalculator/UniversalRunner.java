@@ -47,9 +47,9 @@ public class UniversalRunner {
         Scenario scenario = ScenarioUtils.loadScenario(config);
         Population population = scenario.getPopulation();
 
-        List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
-        AgentsOnModeRemover remover = new AgentsOnModeRemover("pt", population);
-        remover.clean();
+
+        AgentsTripModeModifier modeModifier = new AgentsTripModeModifier(population);
+        modeModifier.clean("pt");
 
         //Population drawedPopulation = PopulationUtils.createPopulation(config);
         List<Id<Person>> personIdList2 = new LinkedList<Id<Person>>();
@@ -86,8 +86,8 @@ public class UniversalRunner {
         Population population = scenario.getPopulation();
 
         List<Id<Person>> personIdList = new LinkedList<Id<Person>>();
-        AgentsOnModeRemover remover = new AgentsOnModeRemover("car", population);
-        remover.clean();
+        AgentsTripModeModifier modeModifier = new AgentsTripModeModifier(population);
+        modeModifier.clean("car");
 
         //Population drawedPopulation = PopulationUtils.createPopulation(config);
         List<Id<Person>> personIdList2 = new LinkedList<Id<Person>>();
