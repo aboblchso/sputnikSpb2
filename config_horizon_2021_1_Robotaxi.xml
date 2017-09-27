@@ -58,7 +58,7 @@
         <!-- An XML file specifying the taxi fleet. The file format according to
             dvrp_vehicles_v1.dtd -->
         <!-- To create your own vehicles, see org.matsim.contrib.av.vehicles.CreateTaxiVehicles  -->
-        <param name="taxisFile" value="input/robotaxi/taxis_50_spb.xml" />
+        <param name="taxisFile" value="input/robotaxi/taxis_5000_spb.xml" />
         <!--  param name="taxisFile" value="taxis_2000.xml" /  -->
 
         <!-- If true, time profiles of vehicle statuses (i.e. current task type)
@@ -93,18 +93,18 @@
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="input/population_horizon2021_1.xml"/>
+        <param name="inputPlansFile" value="input/population_horizon2021_1_taxi.xml"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="output/output_horizon_2021_1_robotaxi/" />
+        <param name="outputDirectory" value="output/output_horizon_2021_1_robotaxi_10percent_5000/" />
         <param name="firstIteration" value="0" />
-        <param name="lastIteration" value="10" />
+        <param name="lastIteration" value="1" />
         <param name="eventsFileFormat" value="xml" />
         <param name="mobsim" value="qsim" />
-        <param name="writePlansInterval" value="10" />
-        <param name="writeEventsInterval" value="10" />
-        <param name="writeSnapshotsInterval" value="10" />
+        <param name="writePlansInterval" value="1" />
+        <param name="writeEventsInterval" value="1" />
+        <param name="writeSnapshotsInterval" value="1" />
     </module>
 
     <module name="qsim">

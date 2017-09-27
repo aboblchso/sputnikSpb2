@@ -52,13 +52,13 @@ import java.util.List;
  */
 public class RunRobotaxiExample {
 
-    private static final double POPULATION_SAMPLE = 0.01;
+    private static final double POPULATION_SAMPLE = 0.1;
     private static boolean SCALE_POPULATION = true;
 
     public static void main(String[] args) {
         String configFile = "config_horizon_2021_1_Robotaxi.xml";
 
-        RunRobotaxiExample.run(configFile, true);
+        RunRobotaxiExample.run(configFile, false);
     }
 
     public static void run(String configFile, boolean otfvis) {
@@ -75,7 +75,6 @@ public class RunRobotaxiExample {
 
         Population population = scenario.getPopulation();
         scaleDownPopulation(population);
-        removeRandomDrawOfAgents(POPULATION_SAMPLE, population);
 
         AgentsTripModeModifier modeModifier = new AgentsTripModeModifier(population);
         modeModifier.clean("pt");

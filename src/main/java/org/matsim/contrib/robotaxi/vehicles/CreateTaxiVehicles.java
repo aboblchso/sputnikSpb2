@@ -50,10 +50,10 @@ public class CreateTaxiVehicles {
      */
     public static void main(String[] args) {
         Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
-        int numberofVehicles = 50;
+        int numberofVehicles = 20000;
         double operationStartTime = 0.; //t0
         double operationEndTime = 24*3600.;	//t1
-        int seats = 4;
+        int seats = 1;
         String networkfile = "input/network_horizon2021_1.xml";
         String taxisFile = "input/robotaxi/taxis_"+numberofVehicles+"_spb.xml";
         List<Vehicle> vehicles = new ArrayList<>();
