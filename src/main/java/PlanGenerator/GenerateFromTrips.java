@@ -147,24 +147,19 @@ public class GenerateFromTrips {
                 trip.setStartTime(startTime);
                 trip.setEndStopId(endStopId);
 
-
-                Iterator iterator = passengerMap.keySet().iterator();
                 boolean alreadyHasTrips = false;
-                while (iterator.hasNext()) {
-                    String passengerId = (String) iterator.next();
-                    if (passengerId.equals(cardId)) {
-                        Passenger passenger = (Passenger) passengerMap.get(passengerId);
-                        passenger.tripList.add(trip);
-                        alreadyHasTrips = true;
-                    }
+                if (passengerMap.containsKey(cardId)){
+                    Passenger passenger = (Passenger) passengerMap.get(cardId);
+                    passenger.tripList.add(trip);
+                    alreadyHasTrips = true;
                 }
                 if (!alreadyHasTrips) {
                     Passenger newPassenger = new Passenger(cardId);
                     newPassenger.tripList.add(trip);
                     passengerMap.put(newPassenger.getPassengerId(), newPassenger);
                 }
-
             }
+
             sortPassengerTrips(passengerMap);
             System.out.println("read the file with trips");
             cleanNullStops(passengerMap);
