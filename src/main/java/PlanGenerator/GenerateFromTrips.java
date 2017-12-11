@@ -19,10 +19,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class GenerateFromTrips {
     final static double AVERAGE_EGRESS_TIME = 60*10;
@@ -32,18 +29,19 @@ public class GenerateFromTrips {
         String outputCRS = "EPSG:32635";
         CoordinateTransformation ct = TransformationFactory.getCoordinateTransformation(inputCRS, outputCRS);
         String inputStations = "input/trips/stops.csv";
-        String inputTrips = "input/trips/TRIPS3.csv";
+        String inputTrips = "input/trips/TRIPS.csv";
         Map stopMap = new HashMap();
+        List stopList = new ArrayList<>();
         Map<String, Passenger> passengerMap = new HashMap();
 
-        readStations(inputStations, stopMap);
+        readStations(inputStations, stopMap, stopList);
         readTrips(inputTrips, passengerMap);
-        createPopulation(passengerMap, ct, stopMap);
+        createPopulation(passengerMap, ct, stopMap, stopList);
         //writePopulation();
 
     }
 
-    private static void createPopulation(Map<String, Passenger> passengerMap, CoordinateTransformation ct, Map stopMap) {
+    private static void createPopulation(Map<String, Passenger> passengerMap, CoordinateTransformation ct, Map stopMap, List stopList) {
         Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
         Population population = scenario.getPopulation();
         PopulationFactory  populationFactory = population.getFactory();
@@ -59,60 +57,74 @@ public class GenerateFromTrips {
             while (tripIterator.hasNext()){
                 tripIndex++;
                 Trip trip = (Trip) tripIterator.next();
-                Stop startStop = (Stop) stopMap.get(trip.startStopId);
-                Coord transformedCoord = ct.transform(startStop.getCoord());
-                Coord randomizedTransformedCoord = randomizeCoord(transformedCoord);
-                String activityType;
-                boolean isLastActivity = false;
-                if ((tripIndex == 1) && (tripIndex >= passenger.tripList.size())){
-                    activityType = "h";
-                } else {
-                    if (trip.getStartTime() < 8 * 3600) {
-                        double random = Math.random();
-                        if (random < 0.95) {
-                            activityType = "h";
-                        } else activityType = "w";
-                    } else if (trip.getStartTime() < 14 * 3600){
-                        double random = Math.random();
-                        if (random < 0.5) {
-                            activityType = "e";
-                        } else activityType = "w";
-                    } else if (trip.getStartTime() < 20 * 3600){
-                        double random = Math.random();
-                        if (random < 0.2) {
-                            activityType = "e";
-                        } else if (random < 0.4){
-                            activityType = "s";
-                        } else activityType = "w";
+                if ( !(stopMap.get(trip.startStopId)== null)){
+                    Stop startStop = (Stop) stopMap.get(trip.startStopId);
+                    Coord transformedCoord = ct.transform(startStop.getCoord());
+                    Coord randomizedTransformedCoord = randomizeCoord(transformedCoord);
+                    String activityType;
+                    boolean isLastActivity = false;
+                    if ((tripIndex == 1) || (tripIndex > passenger.tripList.size())){
+                        activityType = "h";
                     } else {
-                        double random = Math.random();
-                        if (random < 0.2) {
-                            activityType = "w";
-                        } else activityType = "s";
+                        if (trip.getStartTime() < 8 * 3600) {
+                            double random = Math.random();
+                            if (random < 0.95) {
+                                activityType = "h";
+                            } else activityType = "w";
+                        } else if (trip.getStartTime() < 14 * 3600){
+                            double random = Math.random();
+                            if (random < 0.5) {
+                                activityType = "e";
+                            } else activityType = "w";
+                        } else if (trip.getStartTime() < 20 * 3600){
+                            double random = Math.random();
+                            if (random < 0.2) {
+                                activityType = "e";
+                            } else if (random < 0.4){
+                                activityType = "s";
+                            } else activityType = "w";
+                        } else {
+                            double random = Math.random();
+                            if (random < 0.2) {
+                                activityType = "w";
+                            } else activityType = "s";
+                        }
                     }
-                }
-                Activity activity = populationFactory.createActivityFromCoord(activityType, randomizedTransformedCoord);
-                activity.setEndTime(trip.startTime);
-                plan.addActivity(activity);
-                Leg leg = populationFactory.createLeg("pt");
-                plan.addLeg(leg);
+                    Activity activity = populationFactory.createActivityFromCoord(activityType, randomizedTransformedCoord);
+                    activity.setEndTime(trip.startTime);
+                    plan.addActivity(activity);
+                    Leg leg = populationFactory.createLeg("pt");
+                    plan.addLeg(leg);
 
-                if (!tripIterator.hasNext()){
-                    if ((passenger.tripList.size() > 1) && tripIndex > 0){
-                    Activity firstActivity = (Activity) person.getPlans().get(0).getPlanElements().get(0);
-                    Activity lastActivity = populationFactory.createActivityFromCoord(firstActivity.getType(), firstActivity.getCoord());
-                    lastActivity.setEndTime(25 * 3600);
-                    plan.addActivity(lastActivity);
-                    } else {
-                        Stop endStop = (Stop) stopMap.get(trip.endStopId);
-                        Coord endStopCoord = endStop.getCoord();
-                        Coord transformedEndStopCoord = ct.transform(endStopCoord);
-                        Coord randomizedTransformedEndStopCoord = randomizeCoord(transformedEndStopCoord);
-                        Activity lastActivity = populationFactory.createActivityFromCoord("h", randomizedTransformedEndStopCoord);
+                    if (!tripIterator.hasNext()){
+                        if ((passenger.tripList.size() > 1) && tripIndex > 0){
+                        Activity firstActivity = (Activity) person.getPlans().get(0).getPlanElements().get(0);
+                        Activity lastActivity = populationFactory.createActivityFromCoord(firstActivity.getType(), firstActivity.getCoord());
+                        lastActivity.setEndTime(25 * 3600);
                         plan.addActivity(lastActivity);
-                    }
-                }
+                        } else {
+                            if (!(stopMap.get(trip.endStopId) == null)){
+                                Stop endStop = (Stop) stopMap.get(trip.endStopId);
+                                Coord endStopCoord = endStop.getCoord();
+                                Coord transformedEndStopCoord = ct.transform(endStopCoord);
+                                Coord randomizedTransformedEndStopCoord = randomizeCoord(transformedEndStopCoord);
+                                Activity lastActivity = populationFactory.createActivityFromCoord("h", randomizedTransformedEndStopCoord);
+                                plan.addActivity(lastActivity);
+                            } else {
 
+                                Double randomStopIndexDouble = (stopList.size() * Math.random() - 0.5);
+                                int randomStopIndex = randomStopIndexDouble.intValue();
+                                Stop endStop = (Stop) stopList.get(randomStopIndex);
+                                Coord endStopCoord = endStop.getCoord();
+                                Coord transformedEndStopCoord = ct.transform(endStopCoord);
+                                Coord randomizedTransformedEndStopCoord = randomizeCoord(transformedEndStopCoord);
+                                Activity lastActivity = populationFactory.createActivityFromCoord("h", randomizedTransformedEndStopCoord);
+                                plan.addActivity(lastActivity);
+                            }
+                        }
+                    }
+
+                }
             }
 
         }
@@ -204,7 +216,7 @@ public class GenerateFromTrips {
         System.out.println("sorted!");
     }
 
-    private static void readStations(String inputStations, Map stopMap) {
+    private static void readStations(String inputStations, Map stopMap, List stopList) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(inputStations));
             String line = null;
@@ -222,6 +234,7 @@ public class GenerateFromTrips {
                 Coord stopCoord = new Coord(x, y);
                 Stop stop = new Stop(stopId, stopName, mode, stopCoord);
                 stopMap.put(stopId, stop);
+                stopList.add(stop);
             }
 
             System.out.println("end");
