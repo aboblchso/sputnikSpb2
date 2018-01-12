@@ -9,17 +9,17 @@
     </module>
 
     <module name="network">
-        <param name="inputNetworkFile" value="input/network_horizon2021_1.xml" />
+        <param name="inputNetworkFile" value="input/network_horizon2021_1_accident.xml" />
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="input/population_horizon2021_1.xml"/>
+        <param name="inputPlansFile" value="output/outputPopulationFromValidations1.xml"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="output/output_horizon_2021_1_car_final/" />
+        <param name="outputDirectory" value="output/output_horizon_2021_1_car_student/" />
         <param name="firstIteration" value="0" />
-        <param name="lastIteration" value="10" />
+        <param name="lastIteration" value="30" />
         <param name="eventsFileFormat" value="xml" />
         <param name="mobsim" value="qsim" />
         <param name="writePlansInterval" value="10" />
@@ -41,6 +41,10 @@
         <param name="extensionRadius" value="1000" />
         <param name="maxBeelineWalkConnectionDistance" value="1000" />
         <param name="additionalTransferTime" value="900" />
+    </module>
+
+    <module name="facilities">
+        <param name="inputFacilitiesFile" value="input/facilities.xml" />
     </module>
 
     <module name="planCalcScore">
@@ -66,7 +70,6 @@
         <param name="activityMinimalDuration_1" value="06:00:00" />
         <param name="activityOpeningTime_1"     value="07:00:00" />
         <param name="activityLatestStartTime_1" value="09:00:00" />
-        <param name="activityEarliestEndTime_1" value="" />
         <param name="activityClosingTime_1"     value="18:00:00" />
 
         <param name="activityType_2"            value="s" /> <!-- shop -->
@@ -74,9 +77,14 @@
         <param name="activityTypicalDuration_2" value="00:40:00" />
         <param name="activityMinimalDuration_2" value="00:10:00" />
         <param name="activityOpeningTime_2"     value="08:00:00" />
-        <param name="activityLatestStartTime_2" value="" />
-        <param name="activityEarliestEndTime_2" value="" />
         <param name="activityClosingTime_2"     value="20:00:00" />
+
+        <param name="activityType_3"            value="e" /> <!-- shop -->
+        <param name="activityPriority_3"        value="1" />
+        <param name="activityTypicalDuration_3" value="00:40:00" />
+        <param name="activityMinimalDuration_3" value="00:10:00" />
+        <param name="activityOpeningTime_3"     value="08:00:00" />
+        <param name="activityClosingTime_3"     value="20:00:00" />
 
     </module>
 

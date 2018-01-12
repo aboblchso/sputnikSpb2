@@ -12,14 +12,14 @@
         <param name="pIdentifier" value="para_" />
         <param name="operatorType" value="CarefulMultiPlanOperator" />
         <!--Initially was 10-->
-        <param name="numberOfOperators" value="10" />
+        <param name="numberOfOperators" value="3" />
         <param name="numberOfIterationsForProspecting" value="10" />
         <!--initially was 2000-->
 
         <param name="initialBudget" value="2001.0" />
         <!-- to increase nubmer of vehicles-->
         <param name="paxPerVehicle" value="10" />
-        <param name="passengerCarEquivalents" value="1.0" />
+        <param name="passengerCarEquivalents" value="10.0" />
         <param name="vehicleMaximumVelocity" value="6.0" />
 
         <!-- This is normally about 1-2 seconds for standard buses, so for 10% we would need about 10-20 seconds. -->
@@ -47,10 +47,10 @@
         <param name="minOperationTime" value="0.0" />
 
 
-        <param name="minX" value="671000.0" />
-        <param name="maxX" value="699000.0" />
-        <param name="minY" value="6634000.0" />
-        <param name="maxY" value="6668000.0" />
+        <param name="minX" value="675020.6441797183" />
+        <param name="maxX" value="683055.2956559953" />
+        <param name="minY" value="6654299.408196546" />
+        <param name="maxY" value="6659894.289912052" />
 
         <!--
                 <param name="minX" value="480000.0" />
@@ -121,11 +121,11 @@
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="input/population_horizon2021_1.xml"/>
+        <param name="inputPlansFile" value="input/outputPopulationFromValidations1.xml.gz"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="./output/output_horizon_2021_1_pt_minibus_exp_1percent/" />
+        <param name="outputDirectory" value="./output/output_minibus old_village/" />
         <param name="firstIteration" value="0" />
         <param name="lastIteration" value="500" />
         <param name="eventsFileFormat" value="xml" />
@@ -173,7 +173,6 @@
         <param name="activityMinimalDuration_1" value="06:00:00" />
         <param name="activityOpeningTime_1"     value="07:00:00" />
         <param name="activityLatestStartTime_1" value="09:00:00" />
-        <param name="activityEarliestEndTime_1" value="" />
         <param name="activityClosingTime_1"     value="18:00:00" />
 
         <param name="activityType_3"            value="e" /> <!-- education -->
@@ -182,7 +181,6 @@
         <param name="activityMinimalDuration_3" value="02:00:00" />
         <param name="activityOpeningTime_3"     value="07:00:00" />
         <param name="activityLatestStartTime_3" value="09:00:00" />
-        <param name="activityEarliestEndTime_3" value="" />
         <param name="activityClosingTime_3"     value="18:00:00" />
 
         <param name="activityType_2"            value="s" /> <!-- shop -->
@@ -190,8 +188,6 @@
         <param name="activityTypicalDuration_2" value="00:40:00" />
         <param name="activityMinimalDuration_2" value="00:10:00" />
         <param name="activityOpeningTime_2"     value="08:00:00" />
-        <param name="activityLatestStartTime_2" value="" />
-        <param name="activityEarliestEndTime_2" value="" />
         <param name="activityClosingTime_2"     value="20:00:00" />
 
         <param name="activityType_4"            value="l" /> <!-- leasure -->
@@ -199,8 +195,6 @@
         <param name="activityTypicalDuration_4" value="00:40:00" />
         <param name="activityMinimalDuration_4" value="00:10:00" />
         <param name="activityOpeningTime_4"     value="06:00:00" />
-        <param name="activityLatestStartTime_4" value="" />
-        <param name="activityEarliestEndTime_4" value="" />
         <param name="activityClosingTime_4"     value="25:00:00" />
 
     </module>
@@ -222,7 +216,7 @@
     </module>
 
     <module name="transit">
-         <param name="useTransit" value="false" />
+         <param name="useTransit" value="true" />
          <param name="transitScheduleFile" value="input/transitSchedule_horizon2021_1.xml" />
          <param name="vehiclesFile" value="input/transitVehicles_horizon2021_1.xml" />
          <param name="transitModes" value="pt" />
