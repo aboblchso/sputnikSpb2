@@ -9,21 +9,24 @@
     </module>
 
     <module name="network">
-        <param name="inputNetworkFile" value="input/network_horizon2036_1.xml" />
+        <param name="inputNetworkFile" value="input/StudentCalc/network_horizon2021_1_without_srednij.xml" />
+        <!-- <param name="timeVariantNetwork" value="true" />
+        <param name="inputChangeEventsFile" value="input/StudentCalc/networkChanges.xml" /> -->
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="input/pop36.xml"/>
+        <param name="inputPlansFile" value="input/output_plans_students.xml.gz"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="./output/output_horizon_2036_1_pt_2018/" />
+        <param name="outputDirectory" value="output/output_student_levashov_braess3sre_capacity_fix_005/" />
         <param name="firstIteration" value="0" />
-        <param name="lastIteration" value="1" />
+        <param name="lastIteration" value="30" />
         <param name="eventsFileFormat" value="xml" />
         <param name="mobsim" value="qsim" />
-        <param name="writePlansInterval" value="1" />
-        <param name="writeEventsInterval" value="1" />
+        <param name="writePlansInterval" value="10" />
+        <param name="writeEventsInterval" value="10" />
+        <param name="writeSnapshotsInterval" value="10" />
     </module>
 
     <module name="qsim">
@@ -54,6 +57,7 @@
         <param name="travelingWalk" value="-60" />
 
 
+
         <param name="activityType_0"            value="h" /> <!-- home -->
         <param name="activityPriority_0"        value="1" />
         <param name="activityTypicalDuration_0" value="12:00:00" />
@@ -65,17 +69,30 @@
         <param name="activityMinimalDuration_1" value="06:00:00" />
         <param name="activityOpeningTime_1"     value="07:00:00" />
         <param name="activityLatestStartTime_1" value="09:00:00" />
-        <param name="activityEarliestEndTime_1" value="" />
         <param name="activityClosingTime_1"     value="18:00:00" />
+
+        <param name="activityType_3"            value="e" /> <!-- education -->
+        <param name="activityPriority_3"        value="1" />
+        <param name="activityTypicalDuration_3" value="06:00:00" />
+        <param name="activityMinimalDuration_3" value="02:00:00" />
+        <param name="activityOpeningTime_3"     value="07:00:00" />
+        <param name="activityLatestStartTime_3" value="09:00:00" />
+        <param name="activityClosingTime_3"     value="18:00:00" />
 
         <param name="activityType_2"            value="s" /> <!-- shop -->
         <param name="activityPriority_2"        value="1" />
         <param name="activityTypicalDuration_2" value="00:40:00" />
         <param name="activityMinimalDuration_2" value="00:10:00" />
         <param name="activityOpeningTime_2"     value="08:00:00" />
-        <param name="activityLatestStartTime_2" value="" />
-        <param name="activityEarliestEndTime_2" value="" />
         <param name="activityClosingTime_2"     value="20:00:00" />
+
+        <param name="activityType_4"            value="l" /> <!-- leasure -->
+        <param name="activityPriority_4"        value="1" />
+        <param name="activityTypicalDuration_4" value="00:40:00" />
+        <param name="activityMinimalDuration_4" value="00:10:00" />
+        <param name="activityOpeningTime_4"     value="06:00:00" />
+        <param name="activityClosingTime_4"     value="25:00:00" />
+
 
     </module>
 
@@ -96,9 +113,9 @@
     </module>
 
     <module name="transit">
-         <param name="useTransit" value="true" />
-         <param name="transitScheduleFile" value="input/transitSchedule_horizon2036_1.xml" />
-         <param name="vehiclesFile" value="input/transitVehicles_horizon2036_1.xml" />
+         <param name="useTransit" value="false" />
+         <param name="transitScheduleFile" value="input/transitSchedule_horizon2021_1.xml" />
+         <param name="vehiclesFile" value="input/transitVehicles_horizon2021_1.xml" />
          <param name="transitModes" value="pt" />
      </module>
 
@@ -108,4 +125,6 @@
          <param name="teleportedModeSpeed_walk" value="1.4" />
      </module>
 
- </config>
+
+
+</config>

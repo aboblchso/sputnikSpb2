@@ -8,28 +8,30 @@
         <param name="numberOfThreads" value="16" />
     </module>
 
+
+
     <module name="network">
-        <param name="inputNetworkFile" value="input/network_horizon2036_1.xml" />
+        <param name="inputNetworkFile" value="input/network_horizon2021_1.xml" />
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="input/pop36.xml"/>
+        <param name="inputPlansFile" value="input/outputPopulationFromValidations1.xml.gz"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="./output/output_horizon_2036_1_pt_2018/" />
+        <param name="outputDirectory" value="./output/output_access_pt/" />
         <param name="firstIteration" value="0" />
-        <param name="lastIteration" value="1" />
+        <param name="lastIteration" value="0" />
         <param name="eventsFileFormat" value="xml" />
         <param name="mobsim" value="qsim" />
-        <param name="writePlansInterval" value="1" />
-        <param name="writeEventsInterval" value="1" />
+        <param name="writePlansInterval" value="100" />
+        <param name="writeEventsInterval" value="100" />
     </module>
 
     <module name="qsim">
         <!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
         <param name="startTime" value="00:00:00" />
-        <param name="endTime" value="24:00:00" />
+        <param name="endTime" value="25:00:00" />
         <param name="numberOfThreads" value="16"/>
         <param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
         <param name="mainMode" value="car" />
@@ -65,29 +67,40 @@
         <param name="activityMinimalDuration_1" value="06:00:00" />
         <param name="activityOpeningTime_1"     value="07:00:00" />
         <param name="activityLatestStartTime_1" value="09:00:00" />
-        <param name="activityEarliestEndTime_1" value="" />
         <param name="activityClosingTime_1"     value="18:00:00" />
+
+        <param name="activityType_3"            value="e" /> <!-- education -->
+        <param name="activityPriority_3"        value="1" />
+        <param name="activityTypicalDuration_3" value="06:00:00" />
+        <param name="activityMinimalDuration_3" value="02:00:00" />
+        <param name="activityOpeningTime_3"     value="07:00:00" />
+        <param name="activityLatestStartTime_3" value="09:00:00" />
+        <param name="activityClosingTime_3"     value="18:00:00" />
 
         <param name="activityType_2"            value="s" /> <!-- shop -->
         <param name="activityPriority_2"        value="1" />
         <param name="activityTypicalDuration_2" value="00:40:00" />
         <param name="activityMinimalDuration_2" value="00:10:00" />
         <param name="activityOpeningTime_2"     value="08:00:00" />
-        <param name="activityLatestStartTime_2" value="" />
-        <param name="activityEarliestEndTime_2" value="" />
         <param name="activityClosingTime_2"     value="20:00:00" />
 
+        <param name="activityType_4"            value="l" /> <!-- leasure -->
+        <param name="activityPriority_4"        value="1" />
+        <param name="activityTypicalDuration_4" value="00:40:00" />
+        <param name="activityMinimalDuration_4" value="00:10:00" />
+        <param name="activityOpeningTime_4"     value="06:00:00" />
+        <param name="activityClosingTime_4"     value="25:00:00" />
     </module>
 
     <module name="strategy">
         <param name="maxAgentPlanMemorySize" value="3" /> <!-- 0 means unlimited -->
 
-        <param name="ModuleProbability_1" value="0.90" />
+        <param name="ModuleProbability_1" value="0.70" />
         <param name="Module_1" value="ChangeExpBeta" />
 
-        <param name="ModuleProbability_2" value="0.10" />
+        <param name="ModuleProbability_2" value="0.30" />
         <param name="Module_2" value="ReRoute" />
-        <param name="ModuleDisableAfterIteration_2" value="17" />
+        <param name="ModuleDisableAfterIteration_2" value="599" />
 
         
         <param name="ModuleProbability_3" value="0.0" />
@@ -97,10 +110,16 @@
 
     <module name="transit">
          <param name="useTransit" value="true" />
-         <param name="transitScheduleFile" value="input/transitSchedule_horizon2036_1.xml" />
-         <param name="vehiclesFile" value="input/transitVehicles_horizon2036_1.xml" />
+         <param name="transitScheduleFile" value="input/transitSchedule_horizon2021_1.xml" />
+         <param name="vehiclesFile" value="input/transitVehicles_horizon2021_1.xml" />
          <param name="transitModes" value="pt" />
      </module>
+
+    <module name="facilities">
+        <param name="inputFacilityAttributesFile" value="null" />
+        <param name="inputFacilitiesFile" value="input/facilities.xml" />
+    </module>
+
 
 
      <module name="planscalcroute" >

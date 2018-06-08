@@ -1,38 +1,45 @@
 <?xml version="1.0" ?>
-<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v1.dtd">
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v2.dtd">
 <config>
+
+
 
     <module name="global">
         <param name="randomSeed" value="4711" />
         <param name="coordinateSystem" value="EPSG:32635" />
-        <param name="numberOfThreads" value="16" />
+        <param name="numberOfThreads" value="8" />
     </module>
 
     <module name="network">
-        <param name="inputNetworkFile" value="input/network_horizon2036_1.xml" />
+        <param name="inputNetworkFile" value="output/output_horizon_2021_1_robotaxi_10percent_20000/output_network.xml.gz" />
     </module>
 
     <module name="plans">
-        <param name="inputPlansFile" value="input/pop36.xml"/>
+        <param name="inputPlansFile" value="output/output_horizon_2021_1_robotaxi_10percent_20000/output_plans.xml.gz"/>
     </module>
 
     <module name="controler">
-        <param name="outputDirectory" value="./output/output_horizon_2036_1_pt_2018/" />
+        <param name="outputDirectory" value="output/output_ekat_notaxi_car/" />
         <param name="firstIteration" value="0" />
-        <param name="lastIteration" value="1" />
+        <param name="lastIteration" value="10" />
         <param name="eventsFileFormat" value="xml" />
         <param name="mobsim" value="qsim" />
-        <param name="writePlansInterval" value="1" />
-        <param name="writeEventsInterval" value="1" />
+        <param name="writePlansInterval" value="10" />
+        <param name="writeEventsInterval" value="10" />
+        <param name="writeSnapshotsInterval" value="10" />
     </module>
 
     <module name="qsim">
         <!-- "start/endTime" of MobSim (00:00:00 == take earliest activity time/ run as long as active vehicles exist) -->
         <param name="startTime" value="00:00:00" />
         <param name="endTime" value="24:00:00" />
-        <param name="numberOfThreads" value="16"/>
+        <param name="numberOfThreads" value="8"/>
         <param name = "snapshotperiod"	value = "00:00:00"/> <!-- 00:00:00 means NO snapshot writing -->
         <param name="mainMode" value="car" />
+        <param name="simStarttimeInterpretation" value="onlyUseStarttime" />
+        <param name="insertingWaitingVehiclesBeforeDrivingVehicles"
+               value="true" />
+        <param name="snapshotStyle" value="queue" />
     </module>
 
     <module name="transitRouter">
@@ -77,6 +84,14 @@
         <param name="activityEarliestEndTime_2" value="" />
         <param name="activityClosingTime_2"     value="20:00:00" />
 
+        <parameterset type="modeParams">
+            <param name="constant" value="0.0" />
+            <param name="marginalUtilityOfDistance_util_m" value="0.0" />
+            <param name="marginalUtilityOfTraveling_util_hr" value="0.0" />
+            <param name="mode" value="taxi" />
+            <param name="monetaryDistanceRate" value="0.0" />
+        </parameterset>
+
     </module>
 
     <module name="strategy">
@@ -93,15 +108,24 @@
         <param name="ModuleProbability_3" value="0.0" />
         <param name="Module_3" value="ChangeTripMode" />
 
+        <param name="fractionOfIterationsToDisableInnovation" value="0.8" />
+
+        <parameterset type="strategysettings">
+            <param name="strategyName" value="TimeAllocationMutator" />
+            <param name="weight" value="0.1" />
+        </parameterset>
+
+    </module>
+
+    <module name="TimeAllocationMutator">
+        <param name="mutationRange" value="900.0" />
+
     </module>
 
     <module name="transit">
-         <param name="useTransit" value="true" />
-         <param name="transitScheduleFile" value="input/transitSchedule_horizon2036_1.xml" />
-         <param name="vehiclesFile" value="input/transitVehicles_horizon2036_1.xml" />
-         <param name="transitModes" value="pt" />
-     </module>
-
+        <param name="useTransit" value="false" />
+        <param name="transitModes" value="pt" />
+    </module>
 
      <module name="planscalcroute" >
          <param name="beelineDistanceFactor" value="1.3" />

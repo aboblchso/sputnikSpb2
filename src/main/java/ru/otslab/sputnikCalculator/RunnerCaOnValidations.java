@@ -37,14 +37,13 @@ public class RunnerCaOnValidations {
         double populationSample = 0.1;
         boolean scalePopulation = true;
         boolean removePersonOnMode = true;
-        String configFile = "config_horizon_2026_1_car_student_group1_Ilyina.xml";
+        String configFile = "config_horizon_2021_1_car_student_bir.xml";
         Config config = ConfigUtils.loadConfig(configFile);
         Scenario scenario = ScenarioUtils.loadScenario(config);
         //config.global().setNumberOfThreads(12);
         config.qsim().setFlowCapFactor(scaleCoefficient);
         config.qsim().setStorageCapFactor(scaleCoefficient * 2);
         config.controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
-
  /*
         AccessibilityConfigGroup accConfig = ConfigUtils.addOrGetModule(config, AccessibilityConfigGroup.class);
         accConfig.setComputingAccessibilityForMode(Modes4Accessibility.freespeed, true);

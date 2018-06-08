@@ -196,7 +196,6 @@
         <param name="activityMinimalDuration_4" value="00:10:00" />
         <param name="activityOpeningTime_4"     value="06:00:00" />
         <param name="activityClosingTime_4"     value="25:00:00" />
-
     </module>
 
     <module name="strategy">

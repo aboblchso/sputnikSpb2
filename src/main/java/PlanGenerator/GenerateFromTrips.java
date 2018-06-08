@@ -24,6 +24,7 @@ import java.util.*;
 public class GenerateFromTrips {
     final static double AVERAGE_EGRESS_TIME = 60*10;
 
+
     public static void main(String[] args) {
         String inputCRS = "EPSG:4326"; // WGS84
         String outputCRS = "EPSG:32635";
@@ -42,6 +43,8 @@ public class GenerateFromTrips {
     }
 
     private static void createPopulation(Map<String, Passenger> passengerMap, CoordinateTransformation ct, Map stopMap, List stopList) {
+        int personsWithEmptzPlans = 0;
+        int personsWithLegsOnEnd = 0;
         Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
         Population population = scenario.getPopulation();
         PopulationFactory  populationFactory = population.getFactory();
@@ -93,11 +96,18 @@ public class GenerateFromTrips {
                     Activity activity = populationFactory.createActivityFromCoord(activityType, randomizedTransformedCoord);
                     activity.setEndTime(trip.startTime);
                     plan.addActivity(activity);
-                    Leg leg = populationFactory.createLeg("pt");
+                    Leg leg = populationFactory.createLeg("car");
                     plan.addLeg(leg);
 
                     if (!tripIterator.hasNext()){
-                        if ((passenger.tripList.size() > 1) && tripIndex > 0){
+                        if (plan.getPlanElements().isEmpty()) {
+                            population.removePerson(person.getId());
+                            personsWithEmptzPlans++;
+
+                        } else if (plan.getPlanElements().get(plan.getPlanElements().size() - 1) instanceof Leg){
+                            population.removePerson(person.getId());
+                            personsWithLegsOnEnd++;
+                        } else if ((passenger.tripList.size() > 1) && tripIndex > 0){
                         Activity firstActivity = (Activity) person.getPlans().get(0).getPlanElements().get(0);
                         Activity lastActivity = populationFactory.createActivityFromCoord(firstActivity.getType(), firstActivity.getCoord());
                         lastActivity.setEndTime(25 * 3600);
@@ -128,8 +138,11 @@ public class GenerateFromTrips {
             }
 
         }
+        System.out.println("Removed persons with empty plans: " + personsWithEmptzPlans);
+        System.out.println("Removed persons with legs on end: " + personsWithLegsOnEnd);
+
         PopulationWriter populationWriter = new PopulationWriter(population);
-        populationWriter.writeV6("output/outputPopulationFromValidations1.xml");
+        populationWriter.write("output/outputPopulationFromValidationsCar2018.xml");
     }
 
     private static Coord randomizeCoord(Coord transformedCoord) {

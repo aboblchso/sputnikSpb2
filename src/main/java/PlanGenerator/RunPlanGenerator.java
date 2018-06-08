@@ -33,9 +33,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RunPlanGenerator {
-    String zeroDate = "2016.04.06 00:00";
+    String zeroDate = "2016.04.16 00:00";
     Set<Integer> nullZones = new HashSet<>();
-    String modelScenario = "_horizon2036";
+    String modelScenario = "_horizon2036_1";
 
 
 
@@ -67,8 +67,8 @@ public class RunPlanGenerator {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
         Date zeroDate = simpleDateFormat.parse(this.zeroDate);
-        try (BufferedReader reader = new BufferedReader(new FileReader("input\\inputForPlans\\trips" + modelScenario + "_1.csv"));
-             PrintWriter printWriter = new PrintWriter("population_" + modelScenario + "_1.csv")) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("input\\inputForPlans\\trips" + modelScenario + ".csv"));
+             PrintWriter printWriter = new PrintWriter("population_" + modelScenario + ".csv")) {
             String line = null;
             long personId = 0;
             long lineNumber = 0;
@@ -159,7 +159,7 @@ public class RunPlanGenerator {
                 }
             }
             PopulationWriter populationWriter = new PopulationWriter(scenario.getPopulation(), scenario.getNetwork());
-            populationWriter.writeV5("population"  + modelScenario + "_1.xml");
+            populationWriter.writeV5("population"  + modelScenario + ".xml");
           } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -202,7 +202,7 @@ public class RunPlanGenerator {
                 // if the collected feature is MultiPolygon, the we:
                 if (defaultGeometryProperty.getValue() instanceof MultiPolygon){
                     //get its ID
-                    Integer featureIDInt = (Integer) feature.getAttribute("id");
+                    Integer featureIDInt = ((Long) feature.getAttribute("id")).intValue();
                     String featureID = featureIDInt.toString();
                     System.out.println(featureID);
 

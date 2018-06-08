@@ -19,6 +19,7 @@
 package ru.otslab.sputnikCalculator;
 
 import org.matsim.api.core.v01.population.*;
+import org.matsim.core.population.routes.GenericRouteImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class AgentsTripModeModifier {
             for (PlanElement planElement : personPlans.get(personPlans.size() - 1).getPlanElements()) {
                 if (planElement instanceof Leg) {
                     if (((Leg) planElement).getMode().equals(oldMode)) {
+                        ((Leg) planElement).setRoute(null);
                         ((Leg) planElement).setMode(newMode);
                     }
                 }

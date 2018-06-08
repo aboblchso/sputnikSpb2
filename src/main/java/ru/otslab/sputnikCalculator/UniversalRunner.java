@@ -23,25 +23,32 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 public class UniversalRunner {
     public static void main(String[] args) {
         double scaleCoefficient = 1.0;
-        double populationSampleCar = 0.5;
-        double populationSamplePT = 1.0;
+        double populationSampleCar = 1.0;
+        double populationSamplePT = 0.00001;
         boolean scalePopulation = true;
         boolean removePersonOnMode = true;
 
-        for (int year = 2026; year < 2037; year=year+5) {
-            calcCar(scaleCoefficient, populationSampleCar, year);
+        boolean calculateCar = false;
+        if (calculateCar == true) {
+            for (int year = 2036; year < 2037; year = year + 5) {
+                calcCar(scaleCoefficient, populationSampleCar, year);
+            }
+        }
+        boolean calculatePT = true;
+        if (calculatePT == true) {
+            for (int year = 2021; year < 2032; year = year + 5) {
+                calcPT(scaleCoefficient, populationSamplePT, year);
+            }
         }
 
-        for (int year = 2026; year < 2037; year=year+5) {
-            calcPT(scaleCoefficient, populationSamplePT, year);
-        }
+
     }
 
     private static void calcCar (double scaleCoefficient, double populationSample, int year) {
         String configFile = "config_horizon_"+ year + "_1_car.xml";
         Config config = ConfigUtils.loadConfig(configFile);
         //config.global().setNumberOfThreads(12);
-        config.qsim().setFlowCapFactor(scaleCoefficient);
+        config.qsim().setFlowCapFactor(scaleCoefficient * 1.5);
         config.qsim().setStorageCapFactor(scaleCoefficient * 2);
         config.controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
         Scenario scenario = ScenarioUtils.loadScenario(config);
@@ -64,7 +71,7 @@ public class UniversalRunner {
             drawedPopulation.addPerson(toRemoveId);
             */
         }
-        List<Id<Person>> randomDraw = pickNRandom(personIdList2, personIdList2.size() * (1 - populationSample));
+        List<Id<Person>> randomDraw = pickNRandom(personIdList2, personIdList2.size() * (1-populationSample));
         Iterator randomDrawIterator = randomDraw.iterator();
         while (randomDrawIterator.hasNext()) {
             Id<Person> toRemoveId = (Id<Person>) randomDrawIterator.next();
@@ -102,7 +109,7 @@ public class UniversalRunner {
             drawedPopulation.addPerson(toRemoveId);
             */
         }
-        List<Id<Person>> randomDraw = pickNRandom(personIdList2, personIdList2.size() * (1 - populationSample));
+        List<Id<Person>> randomDraw = pickNRandom(personIdList2, personIdList2.size() * (populationSample));
         Iterator randomDrawIterator = randomDraw.iterator();
         while (randomDrawIterator.hasNext()) {
             Id<Person> toRemoveId = (Id<Person>) randomDrawIterator.next();
