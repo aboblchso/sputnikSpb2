@@ -43,7 +43,7 @@ public class GenerateFromTrips {
     }
 
     private static void createPopulation(Map<String, Passenger> passengerMap, CoordinateTransformation ct, Map stopMap, List stopList) {
-        int personsWithEmptzPlans = 0;
+        int personsWithEmptyPlans = 0;
         int personsWithLegsOnEnd = 0;
         Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
         Population population = scenario.getPopulation();
@@ -54,63 +54,35 @@ public class GenerateFromTrips {
             Person person = populationFactory.createPerson(Id.createPersonId(passenger.getPassengerId()));
             Plan plan = populationFactory.createPlan();
             person.addPlan(plan);
-            population.addPerson(person);
+            if (passenger.tripList.size() > 0){
+                population.addPerson(person);
+            }
             Iterator tripIterator = passenger.tripList.iterator();
             int tripIndex = 0;
             while (tripIterator.hasNext()){
                 tripIndex++;
                 Trip trip = (Trip) tripIterator.next();
-                if ( !(stopMap.get(trip.startStopId)== null)){
-                    Stop startStop = (Stop) stopMap.get(trip.startStopId);
+                if ( !(stopMap.get(trip.getStartStopId())== null)){
+                    Stop startStop = (Stop) stopMap.get(trip.getStartStopId());
                     Coord transformedCoord = ct.transform(startStop.getCoord());
                     Coord randomizedTransformedCoord = randomizeCoord(transformedCoord);
                     String activityType;
                     boolean isLastActivity = false;
-                    if ((tripIndex == 1) || (tripIndex > passenger.tripList.size())){
-                        activityType = "h";
-                    } else {
-                        if (trip.getStartTime() < 8 * 3600) {
-                            double random = Math.random();
-                            if (random < 0.95) {
-                                activityType = "h";
-                            } else activityType = "w";
-                        } else if (trip.getStartTime() < 14 * 3600){
-                            double random = Math.random();
-                            if (random < 0.5) {
-                                activityType = "e";
-                            } else activityType = "w";
-                        } else if (trip.getStartTime() < 20 * 3600){
-                            double random = Math.random();
-                            if (random < 0.2) {
-                                activityType = "e";
-                            } else if (random < 0.4){
-                                activityType = "s";
-                            } else activityType = "w";
-                        } else {
-                            double random = Math.random();
-                            if (random < 0.2) {
-                                activityType = "w";
-                            } else activityType = "s";
-                        }
+                    if (!tripIterator.hasNext()){
+                        isLastActivity = true;
                     }
+                    activityType = determineActivityType(passenger, tripIndex, trip);
                     Activity activity = populationFactory.createActivityFromCoord(activityType, randomizedTransformedCoord);
                     activity.setEndTime(trip.startTime);
                     plan.addActivity(activity);
-                    Leg leg = populationFactory.createLeg("car");
-                    plan.addLeg(leg);
-
-                    if (!tripIterator.hasNext()){
-                        if (plan.getPlanElements().isEmpty()) {
-                            population.removePerson(person.getId());
-                            personsWithEmptzPlans++;
-
-                        } else if (plan.getPlanElements().get(plan.getPlanElements().size() - 1) instanceof Leg){
-                            population.removePerson(person.getId());
-                            personsWithLegsOnEnd++;
-                        } else if ((passenger.tripList.size() > 1) && tripIndex > 0){
+                    if (!isLastActivity){
+                        addLegToPlan(populationFactory, plan);
+                    } else if ((passenger.tripList.size() > 1) && tripIndex > 1){
                         Activity firstActivity = (Activity) person.getPlans().get(0).getPlanElements().get(0);
                         Activity lastActivity = populationFactory.createActivityFromCoord(firstActivity.getType(), firstActivity.getCoord());
                         lastActivity.setEndTime(25 * 3600);
+                        addLegToPlan(populationFactory, plan);
+
                         plan.addActivity(lastActivity);
                         } else {
                             if (!(stopMap.get(trip.endStopId) == null)){
@@ -119,6 +91,7 @@ public class GenerateFromTrips {
                                 Coord transformedEndStopCoord = ct.transform(endStopCoord);
                                 Coord randomizedTransformedEndStopCoord = randomizeCoord(transformedEndStopCoord);
                                 Activity lastActivity = populationFactory.createActivityFromCoord("h", randomizedTransformedEndStopCoord);
+                                addLegToPlan(populationFactory, plan);
                                 plan.addActivity(lastActivity);
                             } else {
 
@@ -129,20 +102,86 @@ public class GenerateFromTrips {
                                 Coord transformedEndStopCoord = ct.transform(endStopCoord);
                                 Coord randomizedTransformedEndStopCoord = randomizeCoord(transformedEndStopCoord);
                                 Activity lastActivity = populationFactory.createActivityFromCoord("h", randomizedTransformedEndStopCoord);
+                                addLegToPlan(populationFactory, plan);
                                 plan.addActivity(lastActivity);
                             }
                         }
                     }
 
                 }
-            }
 
-        }
-        System.out.println("Removed persons with empty plans: " + personsWithEmptzPlans);
+                if (((plan.getPlanElements().size() - 1) / 2) < tripIndex){
+                    population.removePerson(person.getId());
+                    System.out.println("Removed person" + person.getId() + " with anomaly in leg number");
+                }
+
+
+            }
+        System.out.println("Removed persons with empty plans: " + personsWithEmptyPlans);
         System.out.println("Removed persons with legs on end: " + personsWithLegsOnEnd);
 
+        deleteFaultyPlans(population);
+
         PopulationWriter populationWriter = new PopulationWriter(population);
-        populationWriter.write("output/outputPopulationFromValidationsCar2018.xml");
+        populationWriter.writeV5("output/outputPopulationFromValidationsCar2018.xml");
+    }
+
+    private static void deleteFaultyPlans(Population population) {
+        int removedFaultyPlans = 0;
+        for (Person person : new ArrayList<Person>(population.getPersons().values())){
+            Plan plan = person.getPlans().get(0);
+            if (plan.getPlanElements().isEmpty()) {
+                population.removePerson(person.getId());
+                removedFaultyPlans++;
+            } else {
+                PlanElement planElement = plan.getPlanElements().get(plan.getPlanElements().size() - 1);
+                PlanElement planElement1 = plan.getPlanElements().get(plan.getPlanElements().size() - 1);
+
+                if (planElement instanceof Leg || planElement1 instanceof Leg) {
+                    population.removePerson(person.getId());
+                    removedFaultyPlans++;
+                }
+
+            }
+        }
+        System.out.println("removed " + removedFaultyPlans + " faulty plans");
+    }
+
+    private static void addLegToPlan(PopulationFactory populationFactory, Plan plan) {
+        Leg leg = populationFactory.createLeg("car");
+        plan.addLeg(leg);
+    }
+
+    private static String determineActivityType(Passenger passenger, int tripIndex, Trip trip) {
+        String activityType;
+        if ((tripIndex == 1) || (tripIndex > passenger.tripList.size())){
+            activityType = "h";
+        } else {
+            if (trip.getStartTime() < 8 * 3600) {
+                double random = Math.random();
+                if (random < 0.95) {
+                    activityType = "h";
+                } else activityType = "w";
+            } else if (trip.getStartTime() < 14 * 3600){
+                double random = Math.random();
+                if (random < 0.5) {
+                    activityType = "e";
+                } else activityType = "w";
+            } else if (trip.getStartTime() < 20 * 3600){
+                double random = Math.random();
+                if (random < 0.2) {
+                    activityType = "e";
+                } else if (random < 0.4){
+                    activityType = "s";
+                } else activityType = "w";
+            } else {
+                double random = Math.random();
+                if (random < 0.2) {
+                    activityType = "w";
+                } else activityType = "s";
+            }
+        }
+        return activityType;
     }
 
     private static Coord randomizeCoord(Coord transformedCoord) {
